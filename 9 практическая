@@ -1,0 +1,203 @@
+import kotlin.random.Random
+
+fun main() {
+    for (i in 1..10) {
+        val randomNum = Random.nextInt(1, 101) // Генерирует случайное число от 1 до 100
+        println(randomNum)
+    }
+}
+//___________________________________
+
+
+fun main() {
+    println("Введите строку:")
+    val text = readLine()!!.toLowerCase()
+    var vowels = 0
+    var consonants = 0
+    for (char in text) {
+        if (char in 'a'..'z') {
+            if (char in 'a', 'e', 'i', 'o', 'u') {
+                vowels++
+            } else {
+                consonants++
+            }
+        }
+    }
+    println("Гласных: $vowels")
+    println("Согласных: $consonants")
+    
+}
+
+//___________________________________
+
+fun main() {
+    println("Введите сумму в долларах:")
+    val dollars = readLine()!!.toDouble()
+    val euroRate = 0.9 // Курс евро на момент написания
+    val euro = dollars * euroRate
+    println("$dollars долларов = $euro евро")
+}
+
+//___________________________________
+
+fun isAnagram(str1: String, str2: String): Boolean {
+    if (str1.length != str2.length) {
+        return false
+    }
+    val charCount = mutableMapOf<Char, Int>()
+    for (char in str1.toLowerCase()) {
+        charCount[char] = (charCount[char] ?: 0) + 1
+    }
+    for (char in str2.toLowerCase()) {
+        if (charCount[char] == null || charCount[char]!! == 0) {
+            return false
+        }
+        charCount[char] = charCount[char]!! - 1
+    }
+    return true
+}
+
+fun main() {
+    println("Введите первую строку:")
+    val str1 = readLine()!!
+    println("Введите вторую строку:")
+    val str2 = readLine()!!
+    if (isAnagram(str1, str2)) {
+        println("Строки являются анаграммами")
+    } else {
+        println("Строки не являются анаграммами")
+        
+    }
+}
+
+
+//___________________________________
+
+fun main() {
+    println("Введите число N:")
+    val n = readLine()!!.toInt()
+    for (i in 2..n) {
+        if (isPrime(i)) {
+            println(i)
+        }
+    }
+}
+
+fun isPrime(number: Int): Boolean {
+    if (number <= 1) {
+        return false
+    }
+    for (i in 2..Math.sqrt(number.toDouble()).toInt()) {
+        if (number % i == 0) {
+            return false
+        }
+    }
+    return true
+}
+//___________________________________
+
+fun sortStrings(strings: Array<String>): Array<String> {
+    return strings.sortedArray()
+}
+
+fun main() {
+    println("Введите строки через пробел:")
+    val input = readLine()!!.split(" ")
+    val sortedStrings = sortStrings(input.toTypedArray())
+    println("Отсортированные строки: ${sortedStrings.joinToString(", ")}")
+}
+
+
+//___________________________________
+
+
+fun changeCase(text: String): String {
+    return text.reversed().map {
+        if (it.isUpperCase()) {
+            it.toLowerCase()
+        } else if (it.isLowerCase()) {
+            it.toUpperCase()
+        } else {
+            it
+        }
+    }.joinToString("")
+}
+
+fun main() {
+    println("Введите строку:")
+    val text = readLine()!!
+    val result = changeCase(text)
+    println("Измененный регистр: $result")
+}
+
+
+//___________________________________
+
+import kotlin.random.Random
+
+fun main() {
+    val secretNumber = Random.nextInt(1, 101)
+    println("Я загадал число от 1 до 100. Попробуйте угадать!")
+    var guess = 0
+    var attempts = 0
+    while (guess != secretNumber) {
+        println("Введите ваше число:")
+        guess = readLine()!!.toInt()
+        attempts++
+        if (guess < secretNumber) {
+            println("Загаданное число больше")
+        } else if (guess > secretNumber) {
+            println("Загаданное число меньше")
+        }
+    }
+    println("Поздравляю! Вы угадали число за $attempts попыток.")
+    
+}
+
+
+
+//___________________________________
+import kotlin.random.Random
+
+fun main() {
+    println("Введите желаемую длину пароля:")
+    val length = readLine()!!.toInt()
+    val password = generatePassword(length)
+    println("Сгенерированный пароль: $password")
+}
+
+fun generatePassword(length: Int): String {
+    val characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-`~|}{[]\:;?><,./"
+    val password = StringBuilder()
+    for (i in 1..length) {
+        password.append(characters[Random.nextInt(characters.length)])
+    }
+    return password.toString()
+}
+
+//___________________________________
+
+fun longestWord(text: String): String {
+    val words = text.split("[\\s.,!?;:]+".toRegex())
+    if (words.isEmpty()) {
+        return ""
+    }
+    var longestWord = words[0]
+    for (word in words) {
+        if (word.length > longestWord.length) {
+            longestWord = word
+        }
+    }
+    return longestWord
+}
+
+fun main() {
+    println("Введите строку:")
+    val text = readLine()!!
+    val longest = longestWord(text)
+    println("Самое длинное слово: $longest")
+}
+
+
+
+
